@@ -60,8 +60,5 @@ echo "[7/8] Wait for workloads to become ready"
 kubectl --context "$KUBE_CONTEXT" wait deploy/"${HELM_RELEASE}-api" --for=condition=available --timeout=120s
 kubectl --context "$KUBE_CONTEXT" wait deploy/"${HELM_RELEASE}-web" --for=condition=available --timeout=120s
 
-cat <<EOF
-[8/8] Port-forward ingress controller to reach the app:
-kubectl --context ${KUBE_CONTEXT} -n ingress-nginx port-forward svc/ingress-nginx-controller 8080:80
-Poi apri http://localhost:8080 (frontend) e http://localhost:8080/api/greet (API).
-EOF
+echo "[8/8] Port-forward ingress controller to reach the app"
+kubectl --context "$KUBE_CONTEXT" -n ingress-nginx port-forward svc/ingress-nginx-controller 8080:80
