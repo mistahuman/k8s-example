@@ -1,0 +1,25 @@
+namespaceOverride: ""
+
+api:
+  image: k8s-example-api:dev
+  replicas: 1
+  port: 8080
+  resources: {}
+
+web:
+  image: k8s-example-web:dev
+  replicas: 1
+  port: 80
+  resources: {}
+
+ingress:
+  enabled: false
+  className: "nginx"
+  host: ""
+  annotations: {}
+  tls: []
+
+greetingCR:
+  enabled: true
+  name: example-greeting
+  message: "Ciao dal CRD!"

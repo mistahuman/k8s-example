@@ -1,0 +1,8 @@
+{{- if .Values.greetingCR.enabled }}
+apiVersion: example.com/v1
+kind: Greeting
+metadata:
+  name: {{ .Values.greetingCR.name | default "example-greeting" }}
+spec:
+  message: {{ .Values.greetingCR.message | quote }}
+{{- end }}

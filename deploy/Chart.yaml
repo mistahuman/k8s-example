@@ -1,0 +1,6 @@
+apiVersion: v2
+name: k8s-example
+description: Simple Go API + Vue frontend with CRD sample
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

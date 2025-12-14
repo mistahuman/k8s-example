@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "k8s-example.fullname" . }}-api
+  labels:
+    {{- include "k8s-example.labels" . | nindent 4 }}
+spec:
+  selector:
+    app: {{ include "k8s-example.fullname" . }}-api
+  ports:
+    - port: 80
+      targetPort: {{ .Values.api.port }}
+      name: http

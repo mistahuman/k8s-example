@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "k8s-example.fullname" . }}-web
+  labels:
+    {{- include "k8s-example.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.web.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "k8s-example.fullname" . }}-web
+  template:
+    metadata:
+      labels:
+        app: {{ include "k8s-example.fullname" . }}-web
+        {{- include "k8s-example.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: web
+          image: {{ .Values.web.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.web.port }}
+          resources: {{- toYaml .Values.web.resources | nindent 12 }}

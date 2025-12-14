@@ -1,0 +1,74 @@
+:root {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  color: #0d0d0d;
+  background: #f4f6fb;
+}
+
+body {
+  margin: 0;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  padding: 24px 28px;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(25, 40, 72, 0.08);
+  width: min(520px, 90vw);
+}
+
+.title {
+  margin: 0 0 12px 0;
+  font-size: 24px;
+}
+
+.subtitle {
+  margin: 0 0 20px 0;
+  color: #475467;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+button {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+.response {
+  margin-top: 18px;
+  padding: 12px 14px;
+  background: #eff4ff;
+  border: 1px solid #c7d7fe;
+  border-radius: 10px;
+  color: #1d4ed8;
+  font-weight: 600;
+}
