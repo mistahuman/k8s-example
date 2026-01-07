@@ -1,0 +1,25 @@
+{{- if .Values.controller.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "k8s-example.fullname" . }}-controller
+  labels:
+    {{- include "k8s-example.labels" . | nindent 4 }}
+    app.kubernetes.io/component: controller
+rules:
+  - apiGroups:
+      - example.com
+    resources:
+      - greetings
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - example.com
+    resources:
+      - greetings/status
+    verbs:
+      - update
+      - patch
+{{- end }}
