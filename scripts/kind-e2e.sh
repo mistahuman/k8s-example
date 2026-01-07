@@ -36,10 +36,14 @@ if ! kind get clusters | grep -qx "$CLUSTER_NAME"; then
 fi
 
 echo "[4/8] Install ingress-nginx (if missing)"
+# kubectl get pods -n ingress-nginx -w
+# kubectl delete ns ingress-nginx
 if ! kubectl --context "$KUBE_CONTEXT" get ns ingress-nginx >/dev/null 2>&1; then
-  kubectl --context "$KUBE_CONTEXT" apply -f \
-    "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-${INGRESS_VERSION}/deploy/static/provider/kind/deploy.yaml"
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+#   kubectl --context "$KUBE_CONTEXT" apply -f \
+    # "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-${INGRESS_VERSION}/deploy/static/provider/kind/deploy.yaml"
 fi
+
 kubectl --context "$KUBE_CONTEXT" wait --namespace ingress-nginx \
   --for=condition=available deploy/ingress-nginx-controller --timeout=180s
 
