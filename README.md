@@ -2,6 +2,7 @@ Simple end-to-end example: tiny Go API, Vue 3 frontend, Docker images, Helm char
 
 ## Structure
 - `api/`: Go HTTP server (`/api/greet`, `/healthz`) + Dockerfile.
+- `controller/`: Demo controller for the `Greeting` CRD + Dockerfile.
 - `web/`: Vue 3 + Vite frontend that calls `/api/greet` + Dockerfile.
 - `deploy/`: Helm chart for API + frontend + ingress + CRD and sample resource.
 
@@ -11,7 +12,12 @@ Simple end-to-end example: tiny Go API, Vue 3 frontend, Docker images, Helm char
    cd api
    docker build -t k8s-example-api:dev .
    ```
-2. Frontend image
+2. Controller image
+   ```bash
+   cd controller
+   docker build -t k8s-example-controller:dev .
+   ```
+3. Frontend image
    ```bash
    cd web
    npm install
@@ -29,6 +35,7 @@ kubectl cluster-info --context kind-k8s-example
 Load the images into the cluster (kind):
 ```bash
 kind load docker-image k8s-example-api:dev --name k8s-example
+kind load docker-image k8s-example-controller:dev --name k8s-example
 kind load docker-image k8s-example-web:dev --name k8s-example
 ```
 
@@ -49,10 +56,11 @@ kind load docker-image k8s-example-web:dev --name k8s-example
    Then browse http://localhost:8080 (or 127.0.0.1). `/api/greet` should respond from the Go API and the Vue page should render. You only need to set `ingress.host` if you want to force matching a specific Host header.
 
 ## CRD
-The chart ships a simple CRD `Greeting` (group `example.com`). A sample custom resource is templated so you can verify CRDs are installed:
+The chart ships a simple CRD `Greeting` (group `example.com`) and a demo controller that mirrors `spec.message` into `status.observedMessage`. A sample custom resource is templated so you can verify CRDs are installed and reconciled:
 ```bash
 kubectl get crd
 kubectl get greetings.example.com
+kubectl get greeting example-greeting -o yaml
 ```
 
 ## Local dev without Kubernetes

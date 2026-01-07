@@ -12,6 +12,12 @@ web:
   port: 80
   resources: {}
 
+controller:
+  enabled: true
+  image: k8s-example-controller:dev
+  imagePullPolicy: IfNotPresent
+  resources: {}
+
 ingress:
   enabled: false
   className: "nginx"
